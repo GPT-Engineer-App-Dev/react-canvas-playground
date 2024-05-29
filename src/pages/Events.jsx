@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Container, Heading, VStack, Button, Table, Thead, Tbody, Tr, Th, Td, Input, FormControl, FormLabel, useToast } from '@chakra-ui/react';
 import { useEvents, useAddEvent, useUpdateEvent, useDeleteEvent } from '../integrations/supabase';
 
@@ -118,7 +119,11 @@ const Events = () => {
           <Tbody>
             {events.map((event) => (
               <Tr key={event.id}>
-                <Td>{event.name}</Td>
+                <Td>
+                  <Link to={`/events/${event.id}`} style={{ color: 'teal', textDecoration: 'underline' }}>
+                    {event.name}
+                  </Link>
+                </Td>
                 <Td>{event.date}</Td>
                 <Td>{event.description}</Td>
                 <Td>
