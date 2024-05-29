@@ -3,6 +3,7 @@ import { Box, Flex, Link } from '@chakra-ui/react';
 import { NavLink } from 'react-router-dom';
 import Index from "./pages/Index.jsx";
 import Events from "./pages/Events.jsx";
+import EventDetail from "./pages/EventDetail.jsx";
 
 const Navbar = () => (
   <Box bg="teal.500" px={4}>
@@ -27,6 +28,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Index />} />
           <Route path="/events" element={<Events />} />
+          <Route path="/events/:id" element={<EventDetail />} />
         </Routes>
       </Box>
     </Router>
