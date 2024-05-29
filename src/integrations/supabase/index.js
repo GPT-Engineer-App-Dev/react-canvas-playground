@@ -122,3 +122,14 @@ export const useDeleteVenue = () => {
         },
     });
 };
+
+// Event Signups table
+export const useAddEventSignup = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (newSignup) => fromSupabase(supabase.from('event_signups').insert([newSignup])),
+        onSuccess: () => {
+            queryClient.invalidateQueries('event_signups');
+        },
+    });
+};
