@@ -42,99 +42,76 @@ const Events = () => {
     }
   };
 
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error loading events.</div>;
-
   return (
-    <Container maxW="container.lg" py={8}>
-      <VStack spacing={4}>
-        <Heading as="h1" size="xl">Events</Heading>
-        <FormControl id="name">
-          <FormLabel>Name</FormLabel>
-          <Input
-            value={newEvent.name}
-            onChange={(e) => setNewEvent({ ...newEvent, name: e.target.value })}
-            placeholder="Event Name"
-          />
+    <Container>
+      <Heading as="h1" mb={4}>Events</Heading>
+      <VStack spacing={4} align="stretch">
+        <FormControl>
+          <FormLabel>Event Name</FormLabel>
+          <Input value={newEvent.name} onChange={(e) => setNewEvent({ ...newEvent, name: e.target.value })} />
         </FormControl>
-        <FormControl id="date">
-          <FormLabel>Date</FormLabel>
-          <Input
-            type="date"
-            value={newEvent.date}
-            onChange={(e) => setNewEvent({ ...newEvent, date: e.target.value })}
-          />
+        <FormControl>
+          <FormLabel>Event Date</FormLabel>
+          <Input type="date" value={newEvent.date} onChange={(e) => setNewEvent({ ...newEvent, date: e.target.value })} />
         </FormControl>
-        <FormControl id="description">
-          <FormLabel>Description</FormLabel>
-          <Input
-            value={newEvent.description}
-            onChange={(e) => setNewEvent({ ...newEvent, description: e.target.value })}
-            placeholder="Event Description"
-          />
+        <FormControl>
+          <FormLabel>Event Description</FormLabel>
+          <Input value={newEvent.description} onChange={(e) => setNewEvent({ ...newEvent, description: e.target.value })} />
         </FormControl>
-        <Button colorScheme="teal" onClick={handleAddEvent}>Add Event</Button>
-
-        {editingEvent && (
-          <>
-            <Heading as="h2" size="lg">Edit Event</Heading>
-            <FormControl id="edit-name">
-              <FormLabel>Name</FormLabel>
-              <Input
-                value={editingEvent.name}
-                onChange={(e) => setEditingEvent({ ...editingEvent, name: e.target.value })}
-                placeholder="Event Name"
-              />
-            </FormControl>
-            <FormControl id="edit-date">
-              <FormLabel>Date</FormLabel>
-              <Input
-                type="date"
-                value={editingEvent.date}
-                onChange={(e) => setEditingEvent({ ...editingEvent, date: e.target.value })}
-              />
-            </FormControl>
-            <FormControl id="edit-description">
-              <FormLabel>Description</FormLabel>
-              <Input
-                value={editingEvent.description}
-                onChange={(e) => setEditingEvent({ ...editingEvent, description: e.target.value })}
-                placeholder="Event Description"
-              />
-            </FormControl>
-            <Button colorScheme="teal" onClick={handleUpdateEvent}>Update Event</Button>
-            <Button colorScheme="red" onClick={() => setEditingEvent(null)}>Cancel</Button>
-          </>
-        )}
-
-        <Table variant="simple">
+        <Button onClick={handleAddEvent} colorScheme="teal">Add Event</Button>
+      </VStack>
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : isError ? (
+        <p>Error loading events.</p>
+      ) : (
+        <Table variant="simple" mt={4}>
           <Thead>
             <Tr>
               <Th>Name</Th>
               <Th>Date</Th>
               <Th>Description</Th>
+              <Th>Invitees</Th>
               <Th>Actions</Th>
             </Tr>
           </Thead>
           <Tbody>
             {events.map((event) => (
               <Tr key={event.id}>
-                <Td>
-                  <Link to={`/events/${event.id}`} style={{ color: 'teal', textDecoration: 'underline' }}>
-                    {event.name}
-                  </Link>
-                </Td>
+                <Td>{event.name}</Td>
                 <Td>{event.date}</Td>
                 <Td>{event.description}</Td>
                 <Td>
-                  <Button size="sm" colorScheme="blue" onClick={() => setEditingEvent(event)}>Edit</Button>
-                  <Button size="sm" colorScheme="red" onClick={() => handleDeleteEvent(event.id)}>Delete</Button>
+                  <Link to={`/events/${event.id}/invitees`} style={{ color: 'teal', textDecoration: 'underline' }}>
+                    View Invitees
+                  </Link>
+                </Td>
+                <Td>
+                  <Button onClick={() => setEditingEvent(event)} colorScheme="blue" size="sm" mr={2}>Edit</Button>
+                  <Button onClick={() => handleDeleteEvent(event.id)} colorScheme="red" size="sm">Delete</Button>
                 </Td>
               </Tr>
             ))}
           </Tbody>
         </Table>
-      </VStack>
+      )}
+      {editingEvent && (
+        <VStack spacing={4} align="stretch" mt={4}>
+          <FormControl>
+            <FormLabel>Event Name</FormLabel>
+            <Input value={editingEvent.name} onChange={(e) => setEditingEvent({ ...editingEvent, name: e.target.value })} />
+          </FormControl>
+          <FormControl>
+            <FormLabel>Event Date</FormLabel>
+            <Input type="date" value={editingEvent.date} onChange={(e) => setEditingEvent({ ...editingEvent, date: e.target.value })} />
+          </FormControl>
+          <FormControl>
+            <FormLabel>Event Description</FormLabel>
+            <Input value={editingEvent.description} onChange={(e) => setEditingEvent({ ...editingEvent, description: e.target.value })} />
+          </FormControl>
+          <Button onClick={handleUpdateEvent} colorScheme="teal">Update Event</Button>
+        </VStack>
+      )}
     </Container>
   );
 };
