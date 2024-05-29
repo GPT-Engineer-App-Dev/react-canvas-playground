@@ -122,3 +122,18 @@ export const useDeleteVenue = () => {
         },
     });
 };
+
+// Event Signups table
+export const useEventSignups = (eventId) => useQuery({
+    queryKey: ['event_signups', eventId],
+    queryFn: () => fromSupabase(supabase.from('event_signups').select('*').eq('event_id', eventId)),
+});
+export const useAddEventSignup = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (newSignup) => fromSupabase(supabase.from('event_signups').insert([newSignup])),
+        onSuccess: () => {
+            queryClient.invalidateQueries('event_signups');
+        },
+    });
+};
