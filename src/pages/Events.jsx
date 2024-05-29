@@ -72,6 +72,7 @@ const Events = () => {
               <Th>Date</Th>
               <Th>Description</Th>
               <Th>Invitees</Th>
+              <Th>Details</Th>
               <Th>Actions</Th>
             </Tr>
           </Thead>
@@ -84,6 +85,11 @@ const Events = () => {
                 <Td>
                   <Link to={`/events/${event.id}/invitees`} style={{ color: 'teal', textDecoration: 'underline' }}>
                     View Invitees
+                  </Link>
+                </Td>
+                <Td>
+                  <Link to={`/events/${event.id}`} style={{ color: 'teal', textDecoration: 'underline' }}>
+                    View Details
                   </Link>
                 </Td>
                 <Td>
