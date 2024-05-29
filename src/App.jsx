@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import Index from "./pages/Index.jsx";
 import Events from "./pages/Events.jsx";
 import EventDetail from "./pages/EventDetail.jsx";
+import Invitees from "./pages/Invitees.jsx";
 
 const Navbar = () => (
   <Box bg="teal.500" px={4}>
@@ -29,6 +30,7 @@ function App() {
           <Route exact path="/" element={<Index />} />
           <Route path="/events" element={<Events />} />
           <Route path="/events/:id" element={<EventDetail />} />
+          <Route path="/events/:id/invitees" element={<Invitees />} />
         </Routes>
       </Box>
     </Router>

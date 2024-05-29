@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { Container, Heading, Text, VStack, Box, FormControl, FormLabel, Input, Button, useToast } from '@chakra-ui/react';
 import { useEvent, useComments, useAddComment, useAddEventSignup } from '../integrations/supabase';
 
@@ -80,6 +80,7 @@ const EventDetail = () => {
             />
           </FormControl>
           <Button colorScheme="teal" mt={4} onClick={handleSignup}>Sign Up</Button>
+          <Button as={Link} to={`/events/${id}/invitees`} colorScheme="teal" mt={4}>View Invitees</Button>
         </Box>
       </VStack>
     </Container>
